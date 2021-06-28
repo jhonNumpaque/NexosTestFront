@@ -1,0 +1,76 @@
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-6"></div>
+        <div class="col-6">
+            <div class="row">
+                <div class="col-2">
+                    <label for="" class="col-form-label">Usuarios:</label>
+                </div>
+                <div class="col-9">
+                    <select class="form-control" (change)="selectChangeUser($event)">
+                        <option value="">Seleccione un usuario</option>
+                        <option *ngFor="let item of users" [value]="item.id">{{ item.names }}</option>
+                    </select>
+                </div>
+                <div class="col-1">
+                    <button class="btn btn-primary" (click)="open()">
+                        <fa-icon [icon]="faPlusCircle"></fa-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="saveUser == true">
+            <div class="row mt-3">
+                <div class="form-group row mb-3">
+                    <div class="col-5">
+                        <label for="" class="col-form-label">Nombres:</label>
+                    </div>
+                    <div class="col-7">
+                        <input type="text" [(ngModel)]="name" title="Nombre de usuario" class="form-control" required />
+                    </div>
+                </div>
+                <div class="form-group row mb-3">
+                    <div class="col-5">
+                        <label for="" class="col-form-label">Edad:</label>
+                    </div>
+                    <div class="col-7">
+                        <input type="number" [(ngModel)]="age" title="Edad de usuario" class="form-control" required />
+                    </div>
+                </div>
+                <div class="form-group row mb-3">
+                    <div class="col-5">
+                        <label for="" class="col-form-label">Roles:</label>
+                    </div>
+                    <div class="col-7">
+                        <select title="Seleccione un rol para el usuario" class="form-control" required (change)="selectChange($event)">
+                            <option value="">Seleccione un rol</option>
+                            <option *ngFor="let item of roles" [value]="item.id">{{ item.name }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row mb-3">
+                    <div class="col-5">
+                        <label for="" class="col-form-label">Fecha de admisión:</label>
+                    </div>
+                    <div class="col-7">
+                        <input type="date" [(ngModel)]="admissionDate" title="Fecha de admisión:" class="form-control" required />
+                    </div>
+                </div>
+                <div class="form-group row mb-3">
+                    <div class="col-5"></div>
+                    <div class="col-7">
+                        <button class="btn btn-primary" (click)="saveData()">
+                            <fa-icon [icon]="faSave"></fa-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ngb-toast style="position: absolute; top: 0; right: 0;"
+  *ngFor="let toast of toastService.toasts"
+  [header]="toast.header" [autohide]="true" [delay]="toast.delay || 5000" [class]="toast.classname"
+  (hide)="toastService.remove(toast)"
+>{{toast.body}}</ngb-toast>
